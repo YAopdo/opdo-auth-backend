@@ -1,0 +1,6 @@
+# requirements.txt
+Flask
+Flask-Cors
+Flask-Bcrypt
+psycopg2-binary
+PyJWT

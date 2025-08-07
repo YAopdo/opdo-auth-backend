@@ -1,0 +1,31 @@
+
+# render.yaml
+services:
+  - type: web
+    name: opdo-auth-backend
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app
+    envVars:
+      - key: DB_NAME
+        fromDatabase:
+          name: opdo-auth-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: opdo-auth-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: opdo-auth-db
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: opdo-auth-db
+          property: host
+      - key: SECRET_KEY
+        value: changeme123456789
+      - key: DB_PORT
+        value: "5432"
+databases:
+  - name: opdo-auth-db
