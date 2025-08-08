@@ -14,13 +14,19 @@ bcrypt = Bcrypt(app)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev_secret_key')
 
 # PostgreSQL connection (adjust for Render)
-conn = psycopg2.connect(
-    dbname=os.environ.get('DB_NAME'),
-    user=os.environ.get('DB_USER'),
-    password=os.environ.get('DB_PASSWORD'),
-    host=os.environ.get('DB_HOST'),
-    port=os.environ.get('DB_PORT', 5432)
-)
+# Prefer DATABASE_URL if provided; fall back to discrete env vars.
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+else:
+    conn = psycopg2.connect(
+        dbname=os.environ.get('DB_NAME'),
+        user=os.environ.get('DB_USER'),
+        password=os.environ.get('DB_PASSWORD'),
+        host=os.environ.get('DB_HOST'),
+        port=os.environ.get('DB_PORT', 5432),
+        sslmode="require"
+    )
 cursor = conn.cursor()
 
 @app.route("/signup", methods=["POST"])
