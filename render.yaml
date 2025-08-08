@@ -1,4 +1,3 @@
-
 # render.yaml
 services:
   - type: web
@@ -8,24 +7,16 @@ services:
     startCommand: gunicorn app:app
     envVars:
       - key: DB_NAME
-        fromDatabase:
-          name: opdo-auth-db
-          property: database
+        value: opdo_auth_db
       - key: DB_USER
-        fromDatabase:
-          name: opdo-auth-db
-          property: user
+        value: opdo_auth_db_user
       - key: DB_PASSWORD
-        fromDatabase:
-          name: opdo-auth-db
-          property: password
+        value: UsQvmWaYP93BT4QEyIOxBi8jUTd9EcTE
       - key: DB_HOST
-        fromDatabase:
-          name: opdo-auth-db
-          property: host
-      - key: SECRET_KEY
-        value: changeme123456789
+        value: dpg-d2abrtbe5dus73a73310-a
       - key: DB_PORT
         value: "5432"
+      - key: SECRET_KEY
+        value: OPDO_YA_SK12
 databases:
   - name: opdo-auth-db
